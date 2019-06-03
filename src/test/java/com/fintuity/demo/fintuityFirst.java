@@ -29,8 +29,8 @@ public class fintuityFirst {
         //Assert.assertTrue("Your personal financial adviser",driver.getTitle().startsWith("Your personal\n" ));
         System.out.println("Titels: " + driver.getTitle());
         Assert.assertTrue("Online Financial Adviser",driver.getTitle().startsWith("Online Financial Adviser" ));
-        driver.close();
-        driver.quit();
+        //driver.close();
+        //driver.quit();
     }
 
     @Test
@@ -40,11 +40,11 @@ public class fintuityFirst {
 
         //check main page content
         WebElement signIn = driver.findElement(By.linkText("SIGN IN"));
-        WebElement getStarted = driver.findElement(By.linkText("GET STARTED"));
+        //WebElement getStarted = driver.findElement(By.linkText("GET STARTED"));
         driver.findElement(By.className("signin"));
 
-        driver.close();
-        driver.quit();
+        //driver.close();
+        //driver.quit();
     }
 
     @Test
@@ -59,8 +59,8 @@ public class fintuityFirst {
         LiveChatXPath.click();
         //driver.findElement(By.className("signin"));
 
-        driver.close();
-        driver.quit();
+        //driver.close();
+        //driver.quit();
     }
 
     @After

@@ -30,7 +30,10 @@ public class LoginSimple {
         Assert.assertTrue("Online Financial Adviser",
                 driver.getTitle().startsWith("Online Financial Adviser" ));
         //driver.findElement(By.xpath("/html/body/div[1]/header/div/div[1]/div/nav/ul/li[5]/a"));
-        driver.findElement(By.xpath("//nav[@class=\"sign in \"]")).click();
+        //driver.findElement(By.linkText("SIGN IN")).click();
+        //driver.findElement(By.className("signin ")).click();
+        driver.findElement(By.xpath("//*[@class='signin ']")).click();
+        driver.findElement(By.cssSelector("body > div.container > header > div > div:nth-child(1) > div > nav > ul > li:nth-child(5) > a")).click();
     }
 
 

@@ -1,5 +1,8 @@
 package com.fintuity.login;
 
+import com.fintuity.LoginPage;
+import com.fintuity.MainPage;
+import com.fintuity.MyProfilePage;
 import com.fintuity.environment.EnvironmentManager;
 import com.fintuity.environment.RunEnvironment;
 import org.junit.After;
@@ -22,18 +25,34 @@ public class LoginSimple {
 
 
     @Test
-    public void availabilityFintuity(){
+    public void loginWithExistingCredentials(){
         driver.navigate().to("https://fintuity.com/");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        System.out.println("Titels: " + driver.getTitle());
-        Assert.assertTrue("Online Financial Adviser",
-                driver.getTitle().startsWith("Online Financial Adviser" ));
-        //driver.findElement(By.xpath("/html/body/div[1]/header/div/div[1]/div/nav/ul/li[5]/a"));
-        //driver.findElement(By.linkText("SIGN IN")).click();
-        //driver.findElement(By.className("signin ")).click();
-        driver.findElement(By.xpath("//*[@class='signin ']")).click();
-        driver.findElement(By.cssSelector("body > div.container > header > div > div:nth-child(1) > div > nav > ul > li:nth-child(5) > a")).click();
+        MainPage mainPage = new MainPage(driver);
+        LoginPage loginPage = mainPage.clickSignIn();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        MyProfilePage myProfilePage = loginPage.loginCorrect("zlatkin_ilya@mail.ru","Scaleio123");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        System.out.println(myProfilePage.getMyProfileTitle());
+        Assert.assertTrue("Check Title of the page", myProfilePage.getMyProfileTitle().equals("My Profile"));
+    }
+
+    @Test
+    public void loginWithExistingCredentials_second_attempt(){
+        driver.navigate().to("https://fintuity.com/");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        MainPage mainPage = new MainPage(driver);
+        LoginPage loginPage = mainPage.clickSignIn();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        LoginPage loginPage_2 = loginPage.loginWithIncorrectCreds("zlatkin_ilya@mail.ru","incorrect");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Assert.assertTrue("Get Error Text: ",
+                loginPage_2.getErrorText().equals("Sorry, your email and password are incorrect - please try again"));
+
+        loginPage_2.clearAllFields();
+        MyProfilePage myProfilePage = loginPage_2.loginCorrect("zlatkin_ilya@mail.ru","Scaleio123");
+        System.out.println(myProfilePage.getMyProfileTitle());
+        Assert.assertTrue("Check Title of the page", myProfilePage.getMyProfileTitle().equals("My Profile"));
     }
 
 

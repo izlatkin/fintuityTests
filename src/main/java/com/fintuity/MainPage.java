@@ -36,6 +36,11 @@ public class MainPage {
         return new LoginPage(driver);
     }
 
+    public RegisterPage clickGetStarted(){
+        driver.findElement(getStarted).click();
+        return new RegisterPage(driver);
+    }
+
 
 
 }

@@ -3,6 +3,10 @@ package com.fintuity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 public class RegisterPage {
     private WebDriver driver;
 
@@ -16,42 +20,50 @@ public class RegisterPage {
 
     private By registerButton = By.xpath("//a[text()='Register']");
     private By loginButton = By.xpath("//a[text()='Login']");
+    private By invalidEmail = By.xpath("//p[text()='Invalid email']");
+    private By loginExist = By.xpath("//div[text()='Login already registered']");
 
-    public RegisterPage(WebDriver driver){
+    public RegisterPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public LoginPage clickSignIn(){
+    public LoginPage clickSignIn() {
         driver.findElement(signInButton).click();
         return new LoginPage(driver);
     }
 
-    public CongratsPage clickRegister(){
-        driver.findElement(registerButton).submit();
+    public CongratsPage clickRegister() {
+        System.out.println("clickRegister");
+        driver.findElement(registerButton).click();
         return new CongratsPage(driver);
     }
 
-    public void typeName(String name){
+    public void typeName(String name) {
+        System.out.println("type Name:" + name);
         driver.findElement(nameField).sendKeys(name);
     }
 
-    public void typeSurname(String surname){
+    public void typeSurname(String surname) {
+        System.out.println("type surname:" + surname);
         driver.findElement(surnameFienld).sendKeys(surname);
     }
 
-    public void typeEmail(String email){
+    public void typeEmail(String email) {
+        System.out.println("type email:" + email);
         driver.findElement(emailField).sendKeys(email);
     }
 
-    public void clickRegCheckBox(){
+    public void clickRegCheckBox() {
+        System.out.println("clickRegCheckBox");
         driver.findElement(regCheckBox).click();
     }
 
-    public CongratsPage register(String name, String surname, String email){
+    public CongratsPage register(String name, String surname, String email) {
         this.typeName(name);
         this.typeSurname(surname);
         this.typeEmail(email);
         this.clickRegCheckBox();
         return this.clickRegister();
     }
+
 }

@@ -1,0 +1,10 @@
+How To:
+
+1. Run all Tests
+mvn test
+2. Run single test
+mvn -Dtest=LoginSimple test
+3. Run single testcase
+mvn -Dtest=LoginSimple#loginWithExistingCredentials test
+
+

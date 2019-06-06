@@ -3,10 +3,6 @@ package com.fintuity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 public class RegisterPage {
     private WebDriver driver;
 
@@ -18,7 +14,7 @@ public class RegisterPage {
     private By emailField = By.id("register_field_email");
     private By regCheckBox = By.className("input-span");
 
-    private By registerButton = By.xpath("//a[text()='Register']");
+    private By registerButton = By.xpath("//button[contains(text(),\'Register\')]");
     private By loginButton = By.xpath("//a[text()='Login']");
     private By invalidEmail = By.xpath("//p[text()='Invalid email']");
     private By loginExist = By.xpath("//div[text()='Login already registered']");
@@ -27,7 +23,14 @@ public class RegisterPage {
         this.driver = driver;
     }
 
+    public LoginPage clickLogin(){
+        System.out.println("login: ");
+        driver.findElement(loginButton).click();
+        return new LoginPage(driver);
+    }
+
     public LoginPage clickSignIn() {
+        System.out.println("clickSignIn: ");
         driver.findElement(signInButton).click();
         return new LoginPage(driver);
     }
@@ -59,11 +62,11 @@ public class RegisterPage {
     }
 
     public CongratsPage register(String name, String surname, String email) {
+        System.out.println("register: ");
         this.typeName(name);
         this.typeSurname(surname);
         this.typeEmail(email);
         this.clickRegCheckBox();
         return this.clickRegister();
     }
-
 }

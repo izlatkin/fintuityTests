@@ -2,6 +2,7 @@ package com.fintuity;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import util.UserProfile;
 
 public class RegisterPage {
     private WebDriver driver;
@@ -59,6 +60,10 @@ public class RegisterPage {
     public void clickRegCheckBox() {
         System.out.println("clickRegCheckBox");
         driver.findElement(regCheckBox).click();
+    }
+
+    public CongratsPage register(UserProfile up){
+        return register(up.getName(),up.getSurname(),up.getEmail());
     }
 
     public CongratsPage register(String name, String surname, String email) {

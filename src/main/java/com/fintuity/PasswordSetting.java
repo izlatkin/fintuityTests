@@ -16,6 +16,8 @@ public class PasswordSetting {
     private By PasswordConfirmField = By.id("setPassword_field_confirmPassword");
     //Password Requirements
     private By passwordRequirements = By.xpath("//div[text()='Password Requirements']");
+    //button Set New Password
+    private By setNewPasswordButton = By.xpath("//button[text()=' Set New Password ']");
 
 
     public PasswordSetting(WebDriver driver) {
@@ -23,14 +25,29 @@ public class PasswordSetting {
     }
 
     public void setPasswordField(String password){
+        System.out.println("set password: " + password);
         driver.findElement(PasswordField).sendKeys(password);
     }
 
     public void setPasswordConfirmField(String password){
+        System.out.println("set confirme password: " + password);
         driver.findElement(PasswordConfirmField).sendKeys(password);
     }
 
-    public void lickPasswordRequirements(){
+    public void setGeneratedPassword(){
+        String passwordGenerated = geek_Password(10);
+        setPasswordField(passwordGenerated);
+        setPasswordConfirmField(passwordGenerated);
+
+    }
+
+    public SelectTopicPage clickSetNewPasswordButton(){
+        System.out.println("click button Set New Password");
+        driver.findElement(setNewPasswordButton).click();
+        return new SelectTopicPage(driver);
+    }
+
+    public void clickPasswordRequirements(){
         driver.findElement(passwordRequirements).click();
     }
 
@@ -55,7 +72,7 @@ public class PasswordSetting {
 
 
     //generate password
-    static char[] geek_Password(int len)
+    static String geek_Password(int len)
     {
         System.out.println("Generating password using random() : ");
         System.out.print("Your new password is : ");
@@ -86,6 +103,6 @@ public class PasswordSetting {
                     values.charAt(rndm_method.nextInt(values.length()));
 
         }
-        return password;
+        return password.toString();
     }
 }

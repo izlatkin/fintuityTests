@@ -1,15 +1,15 @@
-package com.fintuity.login;
+package fintuity_tests.login;
 
-import com.fintuity.*;
-import com.fintuity.environment.EnvironmentManager;
-import com.fintuity.environment.RunEnvironment;
+import com.fintuity.PasswordSetting;
+import com.fintuity.SelectTopicPage;
+import environment.EnvironmentManager;
+import mail.tempMailPage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.tempmail.tempMailPage;
-import org.tempmail.tempMain_EmailBody;
+import mail.tempMain_EmailBody;
 import util.UseCases;
 import util.UserProfile;
 
@@ -17,13 +17,18 @@ import java.util.concurrent.TimeUnit;
 
 public class MailServices {
     static WebDriver driver;
-    static WebDriver driver_f;
+    static WebDriver driver_mail;
+    static EnvironmentManager environmentManager;
+    static EnvironmentManager environmentManager_mail;
+
     @Before
     public void startBrowser() {
-        EnvironmentManager.initWebDriver();
-        driver = RunEnvironment.getWebDriver();
-        EnvironmentManager.initWebDriver();
-        driver_f = RunEnvironment.getWebDriver();
+        environmentManager = new EnvironmentManager();
+        environmentManager.initWebDriver();
+        environmentManager_mail = new EnvironmentManager();
+        environmentManager_mail.initWebDriver();
+        driver = environmentManager.re.getWebDriver();
+        driver_mail = environmentManager_mail.re.getWebDriver();
     }
 
     @Test
@@ -36,10 +41,10 @@ public class MailServices {
         System.out.println("Email: " + email);
 
         //set email
-        driver_f.navigate().to("https://fintuity.com/");
+        driver_mail.navigate().to("https://fintuity.com/");
         UserProfile user = UserProfile.createUserWithRandomNameAndSurname();
         user.setEmail(email);
-        UseCases.registrateUser(driver_f,user);
+        UseCases.registrateUser(driver_mail,user);
 
 
         System.out.println(mainPage.isEmpty());
@@ -47,7 +52,8 @@ public class MailServices {
             registrationEmailClick(mainPage);
         }else{
             //wait N attempt for 10 sec
-            if (mainPage.isReceived(30)){
+            if (mainPage.isReceived(60)){
+                driver.navigate().refresh();
                 registrationEmailClick(mainPage);
             }else{
                 Assert.assertTrue("No registration email was Received", false);
@@ -70,7 +76,8 @@ public class MailServices {
 
     @After
     public void tearDown() {
-        EnvironmentManager.shutDownDriver();
+        environmentManager.shutDownDriver();
+        environmentManager_mail.shutDownDriver();
     }
 
 

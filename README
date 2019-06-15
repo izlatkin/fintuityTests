@@ -8,3 +8,21 @@ mvn -Dtest=LoginSimple test
 mvn -Dtest=LoginSimple#loginWithExistingCredentials test
 
 
+Prod:
+    backoffice: backoffice.fintuity.com
+    Portal: http://portal.fintuity.com
+
+Pre-prod:
+    backoffice: https://preprod-app.fintuity.com/admin
+    Portal: https://preprod-app.fintuity.com/portal/login
+
+Testing:
+    backoffice: https://fintuity.hiendsys.ru/admin/login
+    Portal: https://fintuity.hiendsys.ru/portal/login
+
+
+Registration tests:
+ mvn -Dtest=Registration#reg_new_user test
+
+
+

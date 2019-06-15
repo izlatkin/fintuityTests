@@ -7,7 +7,8 @@ public class MainPage {
     private WebDriver driver;
 
     private By signInButton = By.xpath("//a[text()='SIGN IN']");
-    private By getStarted = By.xpath("//a[text()='Get Started']");
+    private By getStarted = By.xpath("//a[@class=\"getStarted\"]");
+            //By.xpath("//a[text()='Get Started']");
 
     //<button class="btn btn-yellow">Book Free Consultation</button>
     private By bookFreeConsultation = By.className("btn btn-yellow");

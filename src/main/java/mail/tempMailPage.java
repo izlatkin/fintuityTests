@@ -1,4 +1,4 @@
-package org.tempmail;
+package mail;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

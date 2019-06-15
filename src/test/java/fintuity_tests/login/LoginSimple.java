@@ -1,27 +1,26 @@
-package com.fintuity.login;
+package fintuity_tests.login;
 
 import com.fintuity.LoginPage;
 import com.fintuity.MainPage;
 import com.fintuity.MyProfilePage;
 import com.fintuity.RegisterPage;
-import com.fintuity.environment.EnvironmentManager;
-import com.fintuity.environment.RunEnvironment;
+import environment.EnvironmentManager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.util.concurrent.TimeUnit;
 
 public class LoginSimple {
     static WebDriver driver;
+    static EnvironmentManager environmentManager;
     @Before
     public void startBrowser() {
-        EnvironmentManager.initWebDriver();
-        driver = RunEnvironment.getWebDriver();
+        environmentManager = new EnvironmentManager();
+        environmentManager.initWebDriver();
+        driver = environmentManager.re.getWebDriver();
     }
 
 
@@ -35,7 +34,7 @@ public class LoginSimple {
         MyProfilePage myProfilePage = loginPage.loginCorrect("zlatkin_ilya@mail.ru","Scaleio123");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println(myProfilePage.getMyProfileTitle());
-        Assert.assertTrue("Check Title of the page", myProfilePage.getMyProfileTitle().equals("My Profile"));
+        Assert.assertEquals("Check Title of the page", myProfilePage.getMyProfileTitle(),"My Profile");
     }
 
     @Test
@@ -47,13 +46,13 @@ public class LoginSimple {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         LoginPage loginPage_2 = loginPage.loginWithIncorrectCreds("zlatkin_ilya@mail.ru","incorrect");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        Assert.assertTrue("Get Error Text: ",
-                loginPage_2.getErrorText().equals("Sorry, your email and password are incorrect - please try again"));
+        Assert.assertEquals("Get Error Text: ",
+                loginPage_2.getErrorText(),"Sorry, your email and password are incorrect - please try again");
 
         loginPage_2.clearAllFields();
         MyProfilePage myProfilePage = loginPage_2.loginCorrect("zlatkin_ilya@mail.ru","Scaleio123");
         System.out.println(myProfilePage.getMyProfileTitle());
-        Assert.assertTrue("Check Title of the page", myProfilePage.getMyProfileTitle().equals("My Profile"));
+        Assert.assertEquals("Check Title of the page", myProfilePage.getMyProfileTitle(),"My Profile");
     }
 
     @Test
@@ -67,13 +66,13 @@ public class LoginSimple {
         MyProfilePage myProfilePage = loginPage.loginCorrect("zlatkin_ilya@mail.ru","Scaleio123");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println(myProfilePage.getMyProfileTitle());
-        Assert.assertTrue("Check Title of the page", myProfilePage.getMyProfileTitle().equals("My Profile"));
+        Assert.assertEquals("Check Title of the page", myProfilePage.getMyProfileTitle(),"My Profile");
     }
 
 
 
         @After
     public void tearDown() {
-        EnvironmentManager.shutDownDriver();
+        environmentManager.shutDownDriver();
     }
 }

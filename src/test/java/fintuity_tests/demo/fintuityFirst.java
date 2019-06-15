@@ -1,7 +1,7 @@
-package  com.fintuity.demo;
+package fintuity_tests.demo;
 
-import com.fintuity.environment.EnvironmentManager;
-import com.fintuity.environment.RunEnvironment;
+import environment.EnvironmentManager;
+import environment.RunEnvironment;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,12 +13,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 public class fintuityFirst {
-
     static WebDriver driver;
+    static EnvironmentManager environmentManager;
+
     @Before
     public void startBrowser() {
-        EnvironmentManager.initWebDriver();
-        driver = RunEnvironment.getWebDriver();
+        environmentManager = new EnvironmentManager();
+        environmentManager.initWebDriver();
+        driver = environmentManager.re.getWebDriver();
     }
 
 
@@ -47,6 +49,11 @@ public class fintuityFirst {
         //driver.quit();
     }
 
+    @After
+    public void tearDown() {
+        environmentManager.shutDownDriver();
+    }
+
     @Test
     public void findBButtons(){
         driver.get("https://fintuity.com/");
@@ -61,10 +68,5 @@ public class fintuityFirst {
 
         //driver.close();
         //driver.quit();
-    }
-
-    @After
-    public void tearDown() {
-        EnvironmentManager.shutDownDriver();
     }
 }

@@ -2,6 +2,9 @@ package com.fintuity;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class CongratsPage {
 
@@ -13,7 +16,8 @@ public class CongratsPage {
     // To activate your account, please follow the link in the letter
 
     private WebDriver driver;
-    private By sendLinkAgainButton = By.xpath("//a[text()='Send Link Again']");
+    private By sendLinkAgainButton = By.xpath("//*[@class=\"btn btn-warning text-white\"]");
+            //By.xpath("//a[text()='Send Link Again']");
     public CongratsPage(WebDriver driver){
         this.driver = driver;
     }
@@ -22,4 +26,11 @@ public class CongratsPage {
         driver.findElement(sendLinkAgainButton).click();
         return new ResendPage(driver);
     }
+
+    public boolean isTextPresent(String text){
+        List<WebElement> list = this.driver.findElements(By.xpath("//*[contains(text(),'" + text + "')]"));
+        return list.size() > 0;
+    }
+
+
 }

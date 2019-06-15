@@ -1,4 +1,4 @@
-package org.tempmail;
+package mail;
 
 import com.fintuity.PasswordSetting;
 import org.openqa.selenium.By;

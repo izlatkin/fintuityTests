@@ -3,17 +3,13 @@ package fintuity_tests.login;
 import com.fintuity.*;
 import environment.EnvironmentManager;
 import mail.Dropmail;
-import mail.EmailBody;
 import mail.EmailGetnada;
 import org.junit.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import util.UserProfile;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Registration {
@@ -68,7 +64,6 @@ public class Registration {
         Assert.assertTrue("Check that page contains " +
                         "\" Send Link Again \" ",
                 congratsPage.isTextPresent("Send Link Again"));
-
     }
 
     @Test
@@ -81,10 +76,16 @@ public class Registration {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
         //create new mail account
+        String fintuityTab = driver.getWindowHandle();
         ((JavascriptExecutor)driver).executeScript("window.open()");
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.switchTo().window(tabs.get(1));
+        String mailTab ="";
+        for (String tab:tabs) {
+            if (!tab.equals(fintuityTab))
+                mailTab = tab;
+        }
+        driver.switchTo().window(mailTab);
         driver.get("https://dropmail.me/en/");
         // driver.get("https://getnada.com");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -97,7 +98,7 @@ public class Registration {
         user.setEmail(email);
 
         //reg new user
-        driver.switchTo().window(tabs.get(0));
+        driver.switchTo().window(fintuityTab);
         CongratsPage congratsPage = registerPage.register(user);
         //click "send again and content"
         Assert.assertTrue("Check that page contains \"Congrats!\" ",
@@ -108,9 +109,7 @@ public class Registration {
         Assert.assertTrue("Check that page contains " +
                         "\" Send Link Again \" ",
                 congratsPage.isTextPresent("Send Link Again"));
-        //congratsPage.clickSendLinkAgainButton();
 
-        //wait n minutes for new email
         driver.switchTo().window(tabs.get(1));
         String confirmation = "Fintuity email confir";
         tempMailPage.waitForElement(confirmation);
@@ -158,15 +157,14 @@ public class Registration {
         requestCall.setPhone(user.getPhone());
         requestCall.clickRequestCallBack();
 
-        // wait for Consultation has been successfully booked. Your IFA will contact you shortly
+        // wait for "Consultation has been successfully booked. .."
         String callMessage = "Consultation has been successfully booked. Your IFA will contact you shortly";
         requestCall.waitForElement(callMessage);
         Assert.assertTrue("check: " + callMessage,requestCall.isTextPresent(callMessage));
     }
 
-
-//    @After
-//    public void tearDown() {
-//        environmentManager.shutDownDriver();
-//    }
+    @After
+    public void tearDown() {
+        environmentManager.shutDownDriver();
+    }
 }

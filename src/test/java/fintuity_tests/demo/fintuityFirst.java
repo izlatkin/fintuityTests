@@ -1,7 +1,6 @@
 package fintuity_tests.demo;
 
 import environment.EnvironmentManager;
-import environment.RunEnvironment;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,7 +8,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 public class fintuityFirst {
@@ -42,11 +40,7 @@ public class fintuityFirst {
 
         //check main page content
         WebElement signIn = driver.findElement(By.linkText("SIGN IN"));
-        //WebElement getStarted = driver.findElement(By.linkText("GET STARTED"));
         driver.findElement(By.className("signin"));
-
-        //driver.close();
-        //driver.quit();
     }
 
     @After
@@ -61,12 +55,7 @@ public class fintuityFirst {
 
         //check main page content
         WebElement yellowButton = driver.findElement(By.linkText("Book Free Consultation"));
-        //WebElement LiveChat = driver.findElement(By.)
         WebElement LiveChatXPath = driver.findElement(By.xpath("/html/body/div[1]/main/section[4]/div/div[3]/a/button"));
         LiveChatXPath.click();
-        //driver.findElement(By.className("signin"));
-
-        //driver.close();
-        //driver.quit();
     }
 }

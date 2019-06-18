@@ -22,7 +22,7 @@ Testing:
 
 
 Registration tests:
- mvn -Dtest=Registration#reg_new_user test
+ mvn -Dtest=Registration#reg_new_user_and_activate test
 
 
 

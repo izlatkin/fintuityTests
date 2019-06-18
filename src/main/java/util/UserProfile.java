@@ -7,6 +7,7 @@ public class UserProfile {
     static String[] MaritalStatus = {"Married","Single","Divorsced","Widow(er)","Separated","Living with Partner"};
 
     private String name;
+    private String phone;
     private String surname;
     private String email;
     private String password;
@@ -41,6 +42,14 @@ public class UserProfile {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -132,6 +141,14 @@ public class UserProfile {
         return new UserProfile(randomName,randomSurname);
     }
 
+    public void generatePassword(){
+        this.setPassword(getRandomString());
+    }
+
+    public void generatePhone(){
+        setPhone(getRandomNumberString());
+    }
+
     static public String getRandomString() {
 
         int leftLimit = 97; // letter 'a'
@@ -147,5 +164,19 @@ public class UserProfile {
         String generatedString = buffer.toString();
 
         return generatedString;
+    }
+
+    static public String getRandomNumberString(){
+        Random rand = new Random();
+
+        int num1, num2, num3;
+
+        num1 = rand.nextInt (900) + 100;
+        num2 = rand.nextInt (643) + 100;
+        num3 = rand.nextInt (9000) + 1000;
+
+        System.out.println(num1+"-"+num2+"-"+num3);
+        String out = Integer.toString(num1) + Integer.toString(num2) + Integer.toString(num3);
+        return out;
     }
 }

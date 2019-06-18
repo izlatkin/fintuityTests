@@ -22,4 +22,19 @@ public class PropertiesFile {
         readPropertiesFile();
         return prop.getProperty("browser");
     }
+
+    public static String getFintuity_front(){
+        readPropertiesFile();
+        return prop.getProperty("fintuity_front");
+    }
+
+    public static String getFintuity_backoffice(){
+        readPropertiesFile();
+        return prop.getProperty("fintuity_backoffice");
+    }
+
+    public static String getDriverPath(String driverName){
+        readPropertiesFile();
+        return prop.getProperty(driverName);
+    }
 }

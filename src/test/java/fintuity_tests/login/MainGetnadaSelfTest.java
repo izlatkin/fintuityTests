@@ -1,6 +1,7 @@
 package fintuity_tests.login;
 
 import environment.EnvironmentManager;
+import environment.RunEnvironment;
 import mail.EmailGetnada;
 import org.junit.After;
 import org.junit.Before;
@@ -17,9 +18,8 @@ public class MainGetnadaSelfTest {
 
     @Before
     public void startBrowser() {
-        environmentManager = new EnvironmentManager();
-        environmentManager.initWebDriver();
-        driver = environmentManager.re.getWebDriver();
+        EnvironmentManager.initWebDriver();
+        driver = RunEnvironment.getWebDriver();
     }
 
     @Test

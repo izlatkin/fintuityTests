@@ -3,12 +3,9 @@ package com.fintuity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class MainPage {
-    private WebDriver driver;
+public class MainPage extends FintuityPage{
 
     private By signInButton = By.xpath("//a[text()='SIGN IN']");
-    private By getStarted = By.xpath("//*[@class='getStarted']");
-            //By.xpath("//a[text()='Get Started']");
 
     //<button class="btn btn-yellow">Book Free Consultation</button>
     private By bookFreeConsultation = By.className("btn btn-yellow");
@@ -29,7 +26,7 @@ public class MainPage {
     private By intercom = By.className("intercom-fvs20o e2ujk8f2");
 
     public MainPage(WebDriver driver){
-        this.driver = driver;
+        super(driver);
     }
 
     public LoginPage clickSignIn(){
@@ -37,10 +34,6 @@ public class MainPage {
         return new LoginPage(driver);
     }
 
-    public RegisterPage clickGetStarted(){
-        driver.findElement(getStarted).click();
-        return new RegisterPage(driver);
-    }
 
 
 

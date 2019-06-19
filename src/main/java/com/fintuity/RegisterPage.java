@@ -4,8 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import util.UserProfile;
 
-public class RegisterPage {
-    private WebDriver driver;
+public class RegisterPage extends FintuityPage{
 
     private By signInButton = By.xpath("//a[text()='SIGN IN']");
     private By getStarted = By.xpath("//a[text()='Get Started']");
@@ -21,7 +20,7 @@ public class RegisterPage {
     private By loginExist = By.xpath("//div[text()='Login already registered']");
 
     public RegisterPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public LoginPage clickLogin(){

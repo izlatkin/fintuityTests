@@ -6,20 +6,13 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class BookConsultation {
-    private WebDriver driver;
+public class BookConsultation extends FintuityPage{
 
-    private By title = By.xpath("/html/head/title");
     private By nextButton = By.xpath("//button[text()='Next']");
     private By checkBoxes = By.className("input-span");
 
-    public BookConsultation(WebDriver driver){
-        this.driver = driver;
-    }
-
-
-    public String getTitle(){
-        return driver.findElement(title).getText();
+    public BookConsultation(WebDriver driver) {
+        super(driver);
     }
 
     public void clickNext(){
@@ -35,8 +28,4 @@ public class BookConsultation {
         }
     }
 
-    public boolean isTextPresent(String text){
-        List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + text + "')]"));
-        return list.size() > 0;
-    }
 }

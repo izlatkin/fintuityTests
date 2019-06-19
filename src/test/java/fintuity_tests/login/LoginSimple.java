@@ -5,6 +5,7 @@ import com.fintuity.MainPage;
 import com.fintuity.MyProfilePage;
 import com.fintuity.RegisterPage;
 import environment.EnvironmentManager;
+import environment.RunEnvironment;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,13 +15,13 @@ import org.openqa.selenium.WebDriver;
 import java.util.concurrent.TimeUnit;
 
 public class LoginSimple {
+
     static WebDriver driver;
-    static EnvironmentManager environmentManager;
+
     @Before
     public void startBrowser() {
-        environmentManager = new EnvironmentManager();
-        environmentManager.initWebDriver();
-        driver = environmentManager.re.getWebDriver();
+        EnvironmentManager.initWebDriver();
+        driver = RunEnvironment.getWebDriver();
     }
 
 
@@ -69,10 +70,7 @@ public class LoginSimple {
         Assert.assertEquals("Check Title of the page", myProfilePage.getMyProfileTitle(),"My Profile");
     }
 
-
-
-        @After
     public void tearDown() {
-        environmentManager.shutDownDriver();
+        EnvironmentManager.shutDownDriver();
     }
 }

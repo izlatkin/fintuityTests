@@ -1,16 +1,17 @@
 package environment;
 
+
 import org.openqa.selenium.WebDriver;
 
 public class RunEnvironment {
 
-    private WebDriver webDriver;
+    private static WebDriver webDriver;
 
-    public  WebDriver getWebDriver() {
+    public static WebDriver getWebDriver() {
         return webDriver;
     }
 
-    void setWebDriver(WebDriver webDriver) {
-        this.webDriver = webDriver;
+    static void setWebDriver(WebDriver webDriver) {
+        RunEnvironment.webDriver = webDriver;
     }
 }

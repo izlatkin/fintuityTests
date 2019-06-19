@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class CongratsPage {
+public class CongratsPage extends FintuityPage{
 
     //Eaxample:https://portal.fintuity.com/send-link/resend-account-confirmation/congrats?login=test_email@mail.ru
 
@@ -19,7 +19,7 @@ public class CongratsPage {
     private By sendLinkAgainButton = By.xpath("//*[@class=\"btn btn-warning text-white\"]");
             //By.xpath("//a[text()='Send Link Again']");
     public CongratsPage(WebDriver driver){
-        this.driver = driver;
+        super(driver);
     }
 
     public ResendPage clickSendLinkAgainButton(){
@@ -27,10 +27,6 @@ public class CongratsPage {
         return new ResendPage(driver);
     }
 
-    public boolean isTextPresent(String text){
-        List<WebElement> list = this.driver.findElements(By.xpath("//*[contains(text(),'" + text + "')]"));
-        return list.size() > 0;
-    }
 
 
 }

@@ -1,13 +1,14 @@
-package com.fintuity;
+package backoffice;
 
+import com.fintuity.FintuityPage;
+import com.fintuity.LoginPage;
+import com.fintuity.MyProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LoginPage extends FintuityPage{
-
+public class LoginPageBO extends FintuityPage {
     private By signInButton = By.xpath("//a[text()='SIGN IN']");
-    private By getStarted = By.xpath("//a[text()='Get Started']");
 
     //btn btn-warning btn-block font-bold
     private By loginYellow = By.xpath("//button[@class=\"btn btn-warning btn-block font-bold\"]");
@@ -19,21 +20,18 @@ public class LoginPage extends FintuityPage{
     //div[contains(@class,'alert alert-danger')]
     private By error = By.xpath("//div[contains(@class,'alert alert-danger')]");
 
-    public LoginPage(WebDriver driver){
+    public LoginPageBO(WebDriver driver){
         super(driver);
     }
 
-    public void clickSignIn(){
-        driver.findElement(signInButton).click();
-    }
 
-    public MyProfilePage clickLogin(){
+    public AdminMainPage clickLogin(){
         System.out.println("click loginYellow: " + loginYellow.toString());
         driver.findElement(loginYellow).click();
-        return new MyProfilePage(driver);
+        return new AdminMainPage(driver);
     }
 
-    public LoginPage typeEmail(String email){
+    public LoginPageBO typeEmail(String email){
         System.out.println("type email: " + email);
         driver.findElement(emailField).sendKeys(email);
         return this;
@@ -44,7 +42,7 @@ public class LoginPage extends FintuityPage{
         driver.findElement(emailField).clear();
     }
 
-    public LoginPage typePassword(String pwd){
+    public LoginPageBO typePassword(String pwd){
         System.out.println("type password: " + pwd);
         driver.findElement(password).sendKeys(pwd);
         return this;
@@ -82,7 +80,7 @@ public class LoginPage extends FintuityPage{
         return new LoginPage(driver);
     }
 
-    public MyProfilePage loginCorrect(String username, String password){
+    public AdminMainPage loginCorrect(String username, String password){
         this.typeEmail(username);
         this.typePassword(password);
         return this.clickLogin();

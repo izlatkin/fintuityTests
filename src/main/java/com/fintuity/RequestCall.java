@@ -8,22 +8,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class RequestCall {
-    private WebDriver driver;
+public class RequestCall extends FintuityPage{
 
-    private By title = By.xpath("/html/head/title");
     private By requestCallBack = By.xpath("//button[text()=' Request Call Back ']");
     private By checkBoxes = By.className("input-span");
     private By phoneField = By.id("providePhoneNumber_field_phone");
 
-    public RequestCall(WebDriver driver){
-        this.driver = driver;
+    public RequestCall(WebDriver driver) {
+        super(driver);
     }
 
-
-    public String getTitle(){
-        return driver.findElement(title).getText();
-    }
 
     public void clickRequestCallBack(){
         System.out.println("click requestCallBack");
@@ -43,15 +37,5 @@ public class RequestCall {
         driver.findElement(phoneField).sendKeys(phone);
     }
 
-    public boolean isTextPresent(String text){
-        List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + text + "')]"));
-        return list.size() > 0;
-    }
 
-    public void waitForElement(String text) {
-        WebDriverWait wait = new WebDriverWait(driver, 120);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//*[contains(text(),'" + text + "')]")));
-
-    }
 }

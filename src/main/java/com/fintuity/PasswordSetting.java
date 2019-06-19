@@ -7,8 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 import java.util.Random;
 
-public class PasswordSetting {
-    static WebDriver driver;
+public class PasswordSetting extends FintuityPage{
 
     //setPassword_field_password
     private By PasswordField = By.id("setPassword_field_password");
@@ -21,7 +20,7 @@ public class PasswordSetting {
 
 
     public PasswordSetting(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void setPasswordField(String password){

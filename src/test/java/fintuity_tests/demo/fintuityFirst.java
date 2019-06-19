@@ -1,6 +1,7 @@
 package fintuity_tests.demo;
 
 import environment.EnvironmentManager;
+import environment.RunEnvironment;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,13 +13,12 @@ import java.util.concurrent.TimeUnit;
 
 public class fintuityFirst {
     static WebDriver driver;
-    static EnvironmentManager environmentManager;
+
 
     @Before
     public void startBrowser() {
-        environmentManager = new EnvironmentManager();
-        environmentManager.initWebDriver();
-        driver = environmentManager.re.getWebDriver();
+        EnvironmentManager.initWebDriver();
+        driver = RunEnvironment.getWebDriver();
     }
 
 
@@ -33,6 +33,7 @@ public class fintuityFirst {
         //driver.quit();
     }
 
+
     @Test
     public void loginValidTest(){
         driver.get("https://fintuity.com/");
@@ -41,11 +42,6 @@ public class fintuityFirst {
         //check main page content
         WebElement signIn = driver.findElement(By.linkText("SIGN IN"));
         driver.findElement(By.className("signin"));
-    }
-
-    @After
-    public void tearDown() {
-        environmentManager.shutDownDriver();
     }
 
     @Test
@@ -57,5 +53,9 @@ public class fintuityFirst {
         WebElement yellowButton = driver.findElement(By.linkText("Book Free Consultation"));
         WebElement LiveChatXPath = driver.findElement(By.xpath("/html/body/div[1]/main/section[4]/div/div[3]/a/button"));
         LiveChatXPath.click();
+    }
+
+    public void tearDown() {
+        EnvironmentManager.shutDownDriver();
     }
 }

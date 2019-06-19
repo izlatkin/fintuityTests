@@ -2,6 +2,7 @@ package fintuity_tests.demo;
 
 import config.PropertiesFile;
 import environment.EnvironmentManager;
+import environment.RunEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,14 +16,12 @@ import java.util.concurrent.TimeUnit;
 
 public class fintuityAndMainSimpleTest {
     static WebDriver driver;
-    static EnvironmentManager environmentManager;
     static String fintuityUrl;
 
     @Before
     public void startBrowser() {
-        environmentManager = new EnvironmentManager();
-        environmentManager.initWebDriver();
-        driver = environmentManager.re.getWebDriver();
+        EnvironmentManager.initWebDriver();
+        driver = RunEnvironment.getWebDriver();
         fintuityUrl = PropertiesFile.getFintuity_front();
     }
 
@@ -37,6 +36,6 @@ public class fintuityAndMainSimpleTest {
 
     @After
     public void tearDown() {
-        environmentManager.shutDownDriver();
+        EnvironmentManager.shutDownDriver();
     }
 }

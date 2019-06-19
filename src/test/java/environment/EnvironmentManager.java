@@ -8,14 +8,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 public class EnvironmentManager {
-    public RunEnvironment re;
-    public String fintuity_front_url;
-    public String fintuity_backoffice_url;
+    public static String FINTUITY_FRONT_URL;
+    public static String FINTUITY_BACKOFFICE_URL;
 
-    public void initWebDriver() {
+    public static void initWebDriver() {
         String browser = PropertiesFile.getBrowser();
-        fintuity_front_url = PropertiesFile.getFintuity_front();
-        fintuity_backoffice_url = PropertiesFile.getFintuity_backoffice();
+        FINTUITY_FRONT_URL = PropertiesFile.getFintuity_front();
+        FINTUITY_BACKOFFICE_URL = PropertiesFile.getFintuity_backoffice();
         WebDriver driver;
         switch (browser){
             case ("firefox"):
@@ -54,12 +53,10 @@ public class EnvironmentManager {
         // "C:\\Users\\zlatki\\AppData\\Local\\Google\\Chrome\\Application\\phantomjs-2.1.1-windows");
 
 
-
-        re = new RunEnvironment();
-        re.setWebDriver(driver);
+        RunEnvironment.setWebDriver(driver);
     }
 
-    public void shutDownDriver() {
-        re.getWebDriver().quit();
+    public static void shutDownDriver() {
+        RunEnvironment.getWebDriver().quit();
     }
 }

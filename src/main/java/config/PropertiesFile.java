@@ -10,7 +10,7 @@ public class PropertiesFile {
 
     public static void readPropertiesFile(){
         try {
-            InputStream input = new FileInputStream("./test.properties");
+            InputStream input = new FileInputStream("./test.properties.txt");
             prop.load(input);
 
         } catch (java.io.IOException e) {

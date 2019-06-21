@@ -55,6 +55,7 @@ public class fintuityFirst {
         LiveChatXPath.click();
     }
 
+    @After
     public void tearDown() {
         EnvironmentManager.shutDownDriver();
     }

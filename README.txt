@@ -1,7 +1,10 @@
 How To:
 
 1. Run all Tests
-mvn test
+>mvn test
+with report generation with only  tests
+>mvn surefire-report:report -DshowSuccess=false
+
 2. Run single test
 mvn -Dtest=LoginSimple test
 3. Run single testcase

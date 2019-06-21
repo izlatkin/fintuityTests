@@ -11,7 +11,7 @@ public class LoginPageBO extends FintuityPage {
     private By signInButton = By.xpath("//a[text()='SIGN IN']");
 
     //btn btn-warning btn-block font-bold
-    private By loginYellow = By.xpath("//button[@class=\"btn btn-warning btn-block font-bold\"]");
+    private By loginYellow = By.xpath("//button[@class='btn btn-warning btn-block font-bold']");
 
     private By emailField = By.id("login_field_email");
     private By password = By.id("login_field_password");

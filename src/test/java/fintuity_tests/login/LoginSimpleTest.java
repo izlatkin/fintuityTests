@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginSimple {
+public class LoginSimpleTest {
 
     static WebDriver driver;
 
@@ -23,7 +23,6 @@ public class LoginSimple {
         EnvironmentManager.initWebDriver();
         driver = RunEnvironment.getWebDriver();
     }
-
 
     @Test
     public void loginWithExistingCredentials(){
@@ -70,6 +69,7 @@ public class LoginSimple {
         Assert.assertEquals("Check Title of the page", myProfilePage.getMyProfileTitle(),"My Profile");
     }
 
+    @After
     public void tearDown() {
         EnvironmentManager.shutDownDriver();
     }

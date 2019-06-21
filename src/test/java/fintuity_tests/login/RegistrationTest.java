@@ -14,7 +14,7 @@ import util.UserProfile;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class Registration {
+public class RegistrationTest {
     static WebDriver driver;
 
     @Before

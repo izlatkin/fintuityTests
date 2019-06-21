@@ -22,7 +22,11 @@ Testing:
 
 
 Registration tests:
- mvn -Dtest=Registration#reg_new_user_and_activate test
+ mvn -Dtest=RegistrationTest#reg_new_user_and_activate test
+ mvn -Dtest=RegistrationTest#reg_new_user_activate_backoffice_confirm test
+
+ Login Test
+ mvn -Dtest=LoginSimpleTest#loginWithExistingCredentials test
 
 
 

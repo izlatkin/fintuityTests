@@ -17,6 +17,8 @@ public class BackOfficeSanityTest {
         EnvironmentManager.initWebDriver();
         driver = RunEnvironment.getWebDriver();
         driver.get(EnvironmentManager.FINTUITY_BACKOFFICE_URL);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
         LoginPageBO loginPageBO = new LoginPageBO(driver);
         AdminMainPage adminMainPage = loginPageBO.loginCorrect("ilya.zlatkin@gmail.com","Scaleio123");
     }
@@ -84,7 +86,7 @@ public class BackOfficeSanityTest {
                 adminMainPage.isClientFieldAvaible());
         Assert.assertTrue("Client filed not clickable ",
                 adminMainPage.isClientFieldClickable());
-        adminMainPage.clickClientField();
+        //adminMainPage.clickClientField();
         adminMainPage.typeClientField("test name");
         Assert.assertTrue("Task filed not avaible ",
                 adminMainPage.isTaskFormFieldTypeAvaible());

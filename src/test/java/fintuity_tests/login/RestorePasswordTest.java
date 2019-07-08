@@ -146,8 +146,8 @@ public class RestorePasswordTest{
     }
 
 
-//    @AfterMethod
-//    public void tearDown() {
-//        EnvironmentManager.shutDownDriver();
-//    }
+    @AfterMethod
+    public void tearDown() {
+        EnvironmentManager.shutDownDriver();
+    }
 }

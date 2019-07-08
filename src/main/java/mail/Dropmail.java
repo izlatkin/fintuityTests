@@ -44,6 +44,13 @@ public class Dropmail {
 
     }
 
+    public void waitForElement(String text, int Seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Seconds);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'" + text + "')]")));
+
+    }
+
     public boolean isEmpty() {
         return isTextPresent("Nothing received yet");
     }
@@ -75,6 +82,19 @@ public class Dropmail {
             String tmp = link.getAttribute("href");
             System.out.println(link.getText() + " - " );
             if (tmp != null && tmp.indexOf("confirm-account") > 0)
+                confirmLink = tmp;
+        }
+        return confirmLink;
+    }
+
+
+    public String findRestoreLink(){
+        String confirmLink = "";
+        List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+        for(WebElement link:allLinks){
+            String tmp = link.getAttribute("href");
+            System.out.println(link.getText() + " - " );
+            if (tmp != null && tmp.indexOf("password-restore") > 0)
                 confirmLink = tmp;
         }
         return confirmLink;

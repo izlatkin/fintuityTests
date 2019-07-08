@@ -6,7 +6,8 @@ import util.UserProfile;
 
 public class RegisterPage extends FintuityPage{
 
-    private By signInButton = By.xpath("//a[text()='SIGN IN']");
+    //private By signInButton = By.xpath("//a[text()='SIGN IN']");
+    private By signInButton = By.xpath("//a[text()='sign in']");
     private By getStarted = By.xpath("//a[text()='Get Started']");
 
     private By nameField = By.id("register_field_forename");

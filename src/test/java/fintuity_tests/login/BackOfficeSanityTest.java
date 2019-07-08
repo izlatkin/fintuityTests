@@ -24,10 +24,9 @@ public class BackOfficeSanityTest {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         LoginPageBO loginPageBO = new LoginPageBO(driver);
-        AdminMainPage adminMainPage = loginPageBO.loginCorrect("ilya.zlatkin@gmail.com","Scaleio123");
+        loginPageBO.loginCorrect("testIFA1@fintuity.com","Fintuity-test1");
     }
 
-    @Ignore
     @Test
     public void checkButtons(){
         AdminMainPage adminMainPage =  new AdminMainPage(driver);
@@ -37,7 +36,6 @@ public class BackOfficeSanityTest {
         Assert.assertTrue(adminMainPage.isTextPresent("In Progress"),"No \"In Progress\" button" );
     }
 
-    @Ignore
     @Test
     public void checkClickability(){
         AdminMainPage adminMainPage =  new AdminMainPage(driver);
@@ -67,7 +65,6 @@ public class BackOfficeSanityTest {
         Assert.assertTrue(adminMainPage.isInProgressActive(),"check that default mode of 'In Progress' is active");
     }
 
-    @Ignore
     @Test
     public void checkCreateNewTaskButtom(){
         AdminMainPage adminMainPage =  new AdminMainPage(driver);

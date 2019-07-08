@@ -273,7 +273,7 @@ public class RegistrationTest {
 
         LoginPageBO loginPageBO = new LoginPageBO(driver);
         AdminMainPage adminMainPage =
-                loginPageBO.loginCorrect("ilya.zlatkin@gmail.com","Scaleio123");
+                loginPageBO.loginCorrect("testIFA1@fintuity.com","Fintuity-test1");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         Assert.assertTrue(adminMainPage.isTextPresent(user.getName()),"Check user Name: ");
         Assert.assertTrue(adminMainPage.isTextPresent(user.getSurname()),"Check user Surname: ");

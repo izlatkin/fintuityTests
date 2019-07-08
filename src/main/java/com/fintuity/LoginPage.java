@@ -19,6 +19,8 @@ public class LoginPage extends FintuityPage{
     //div[contains(@class,'alert alert-danger')]
     private By error = By.xpath("//div[contains(@class,'alert alert-danger')]");
 
+    private By restore = By.xpath("//*[text()=' Restore it ']");
+
     public LoginPage(WebDriver driver){
         super(driver);
     }
@@ -65,6 +67,12 @@ public class LoginPage extends FintuityPage{
         System.out.println("click : " + loginButton.toString());
         driver.findElement(loginButton).click();
         return new MyProfilePage(driver);
+    }
+
+    public RestorePage clickRestore(){
+        System.out.println("click : " + restore.toString());
+        driver.findElement(restore).click();
+        return new RestorePage(driver);
     }
 
     public WebElement pageLable(){

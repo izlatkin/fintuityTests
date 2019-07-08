@@ -3,11 +3,11 @@ package fintuity_tests.login;
 import environment.EnvironmentManager;
 import environment.RunEnvironment;
 import mail.EmailGetnada;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +16,7 @@ public class MainGetnadaSelfTest {
     static WebDriver driver;
     static EnvironmentManager environmentManager;
 
-    @Before
+    @BeforeMethod
     public void startBrowser() {
         EnvironmentManager.initWebDriver();
         driver = RunEnvironment.getWebDriver();
@@ -31,7 +31,7 @@ public class MainGetnadaSelfTest {
     }
 
 
-    @After
+    @AfterMethod
     public void tearDown() {
         environmentManager.shutDownDriver();
     }

@@ -2,20 +2,21 @@ package fintuity_tests.demo;
 
 import environment.EnvironmentManager;
 import environment.RunEnvironment;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
 import java.util.concurrent.TimeUnit;
 
 public class fintuityFirst {
     static WebDriver driver;
 
 
-    @Before
+    @BeforeMethod
     public void startBrowser() {
         EnvironmentManager.initWebDriver();
         driver = RunEnvironment.getWebDriver();
@@ -28,7 +29,7 @@ public class fintuityFirst {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //Assert.assertTrue("Your personal financial adviser",driver.getTitle().startsWith("Your personal\n" ));
         System.out.println("Titels: " + driver.getTitle());
-        Assert.assertTrue("Online Financial Adviser",driver.getTitle().startsWith("Online Financial Adviser" ));
+        Assert.assertTrue(driver.getTitle().startsWith("Online Financial Adviser" ),"Online Financial Adviser");
         //driver.close();
         //driver.quit();
     }
@@ -55,7 +56,7 @@ public class fintuityFirst {
         LiveChatXPath.click();
     }
 
-    @After
+    @AfterMethod
     public void tearDown() {
         EnvironmentManager.shutDownDriver();
     }

@@ -6,9 +6,12 @@ import com.fintuity.*;
 import environment.EnvironmentManager;
 import environment.RunEnvironment;
 import mail.Dropmail;
-import org.junit.*;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import util.UserProfile;
 
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class RegistrationTest {
     static WebDriver driver;
 
-    @Before
+    @BeforeMethod
     public void startBrowser() {
         EnvironmentManager.initWebDriver();
         driver = RunEnvironment.getWebDriver();
@@ -58,14 +61,13 @@ public class RegistrationTest {
         driver.switchTo().window(fintuityTab);
         CongratsPage congratsPage = registerPage.register(user);
         //click "send again and content"
-        Assert.assertTrue("Check that page contains \"Congrats!\" ",
-                congratsPage.isTextPresent("Congrats!"));
-        Assert.assertTrue("Check that page contains " +
-                        "\"You have successfully created account in the system.\" ",
-                congratsPage.isTextPresent("You have successfully created account in the system."));
-        Assert.assertTrue("Check that page contains " +
-                        "\" Send Link Again \" ",
-                congratsPage.isTextPresent("Send Link Again"));
+        Assert.assertTrue(congratsPage.isTextPresent("Congrats!"),"Check that page contains \"Congrats!\" ");
+        Assert.assertTrue(congratsPage.isTextPresent("You have successfully created account in the system."),
+                "Check that page contains " +
+                        "\"You have successfully created account in the system.\" ");
+        Assert.assertTrue(congratsPage.isTextPresent("Send Link Again"),
+                "Check that page contains " +
+                        "\" Send Link Again \" ");
     }
 
     @Test
@@ -103,21 +105,21 @@ public class RegistrationTest {
         driver.switchTo().window(fintuityTab);
         CongratsPage congratsPage = registerPage.register(user);
         //click "send again and content"
-        Assert.assertTrue("Check that page contains \"Congrats!\" ",
-                congratsPage.isTextPresent("Congrats!"));
-        Assert.assertTrue("Check that page contains " +
-                        "\"You have successfully created account in the system.\" ",
-                congratsPage.isTextPresent("You have successfully created account in the system."));
-        Assert.assertTrue("Check that page contains " +
-                        "\" Send Link Again \" ",
-                congratsPage.isTextPresent("Send Link Again"));
+        Assert.assertTrue(congratsPage.isTextPresent("Congrats!"),
+                "Check that page contains \"Congrats!\" ");
+        Assert.assertTrue(congratsPage.isTextPresent("You have successfully created account in the system."),
+                "Check that page contains " +
+                        "\"You have successfully created account in the system.\" ");
+        Assert.assertTrue(congratsPage.isTextPresent("Send Link Again"),
+                "Check that page contains " +
+                        "\" Send Link Again \" ");
 
         driver.switchTo().window(mailTab);
         String confirmation = "Fintuity email confir";
         tempMailPage.waitForElement(confirmation);
         //EmailPage emailPage = emailGetnada.openEmail("activation message");
-        Assert.assertTrue("Fintuity email confirmation was not received ",
-                tempMailPage.isTextPresent(confirmation));
+        Assert.assertTrue(tempMailPage.isTextPresent(confirmation),
+                "Fintuity email confirmation was not received ");
 
         //click on email and do some checks for email
         tempMailPage.clickOnText(confirmation);
@@ -130,7 +132,8 @@ public class RegistrationTest {
         //Assert.assertTrue(emailBody.isTextPresent(confirmYourEmail));
 
         //click on ac activation link
-        Assert.assertFalse("Activation link was not found ", activationLink.isEmpty());
+        Assert.assertFalse(activationLink.isEmpty(),
+                "Activation link was not found ");
         ((JavascriptExecutor)driver).executeScript("window.open()");
         tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -148,8 +151,8 @@ public class RegistrationTest {
         //book consultation
         BookConsultation bookConsultation = new BookConsultation(driver);
         String successMessage = "You have successfully activated your account";
-        Assert.assertTrue("No \"" + successMessage + "\"",
-                bookConsultation.isTextPresent(successMessage));
+        Assert.assertTrue(bookConsultation.isTextPresent(successMessage),
+                "No \"" + successMessage + "\"");
         bookConsultation.printCheckBoxes();
         bookConsultation.clickNext();
 
@@ -162,7 +165,8 @@ public class RegistrationTest {
         // wait for "Consultation has been successfully booked. .."
         String callMessage = "Consultation has been successfully booked. Your IFA will contact you shortly";
         requestCall.waitForElement(callMessage);
-        Assert.assertTrue("check: " + callMessage,requestCall.isTextPresent(callMessage));
+        Assert.assertTrue(requestCall.isTextPresent(callMessage),
+                "check: " + callMessage);
     }
 
     @Test
@@ -200,21 +204,21 @@ public class RegistrationTest {
         driver.switchTo().window(fintuityTab);
         CongratsPage congratsPage = registerPage.register(user);
         //click "send again and content"
-        Assert.assertTrue("Check that page contains \"Congrats!\" ",
-                congratsPage.isTextPresent("Congrats!"));
-        Assert.assertTrue("Check that page contains " +
-                        "\"You have successfully created account in the system.\" ",
-                congratsPage.isTextPresent("You have successfully created account in the system."));
-        Assert.assertTrue("Check that page contains " +
-                        "\" Send Link Again \" ",
-                congratsPage.isTextPresent("Send Link Again"));
+        Assert.assertTrue(congratsPage.isTextPresent("Congrats!"),
+                "Check that page contains \"Congrats!\" ");
+        Assert.assertTrue(congratsPage.isTextPresent("You have successfully created account in the system."),
+                "Check that page contains " +
+                        "\"You have successfully created account in the system.\" ");
+        Assert.assertTrue(congratsPage.isTextPresent("Send Link Again"),
+                "Check that page contains " +
+                        "\" Send Link Again \" ");
 
         driver.switchTo().window(mailTab);
         String confirmation = "Fintuity email confir";
         tempMailPage.waitForElement(confirmation);
         //EmailPage emailPage = emailGetnada.openEmail("activation message");
-        Assert.assertTrue("Fintuity email confirmation was not received ",
-                tempMailPage.isTextPresent(confirmation));
+        Assert.assertTrue(tempMailPage.isTextPresent(confirmation),
+                "Fintuity email confirmation was not received ");
 
         //click on email and do some checks for email
         tempMailPage.clickOnText(confirmation);
@@ -227,7 +231,8 @@ public class RegistrationTest {
         //Assert.assertTrue(emailBody.isTextPresent(confirmYourEmail));
 
         //click on ac activation link
-        Assert.assertFalse("Activation link was not found ", activationLink.isEmpty());
+        Assert.assertFalse(activationLink.isEmpty(),
+                "Activation link was not found ");
         ((JavascriptExecutor) driver).executeScript("window.open()");
         tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -245,8 +250,8 @@ public class RegistrationTest {
         //book consultation
         BookConsultation bookConsultation = new BookConsultation(driver);
         String successMessage = "You have successfully activated your account";
-        Assert.assertTrue("No \"" + successMessage + "\"",
-                bookConsultation.isTextPresent(successMessage));
+        Assert.assertTrue(bookConsultation.isTextPresent(successMessage),
+                "No \"" + successMessage + "\"");
         bookConsultation.printCheckBoxes();
         bookConsultation.clickNext();
 
@@ -270,12 +275,12 @@ public class RegistrationTest {
         AdminMainPage adminMainPage =
                 loginPageBO.loginCorrect("ilya.zlatkin@gmail.com","Scaleio123");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        Assert.assertTrue("Check user Name: ",adminMainPage.isTextPresent(user.getName()));
-        Assert.assertTrue("Check user Surname: ",adminMainPage.isTextPresent(user.getSurname()));
-        Assert.assertTrue("Check Phone: ",adminMainPage.isTextPresent(user.getPhone()));
+        Assert.assertTrue(adminMainPage.isTextPresent(user.getName()),"Check user Name: ");
+        Assert.assertTrue(adminMainPage.isTextPresent(user.getSurname()),"Check user Surname: ");
+        Assert.assertTrue(adminMainPage.isTextPresent(user.getPhone()),"Check Phone: ");
     }
 
-    @After
+    @AfterMethod
     public void tearDown() {
         EnvironmentManager.shutDownDriver();
     }

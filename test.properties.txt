@@ -1,6 +1,6 @@
 [MacOS]
-#browser=Firefox
-browser=Chrome
+browser=Firefox
+#browser=Chrome
 #browser=Safary
 #browser=Edge
 
@@ -18,13 +18,13 @@ webdriver.edge.driver=C:\\ilya\\drivers\\msedgedriver.exe
 [fintuity]
 #prod
 #milestone=production
-fintuity_front=https://fintuity.com/
-fintuity_backoffice=https://backoffice.fintuity.com
+#fintuity_front=https://fintuity.com/
+#fintuity_backoffice=https://backoffice.fintuity.com
 
 #pre-prod
 #milestone=staging
-#fintuity_front=https://preprod-app.fintuity.com/portal/login
-#fintuity_backoffice=https://preprod-app.fintuity.com/admin
+fintuity_front=https://preprod-app.fintuity.com/portal/login
+fintuity_backoffice=https://preprod-app.fintuity.com/admin
 
 #testing
 milestone=testing

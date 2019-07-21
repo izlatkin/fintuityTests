@@ -124,8 +124,7 @@ public class RegistrationTest {
         //click on email and do some checks for email
         tempMailPage.clickOnText(confirmation);
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.MINUTES);
-        String confirmYourEmail = "Confirm your email";
-        //emailGetnada.waitForElement(confirmYourEmail);
+        String confirmYourEmail = "Fintuity email confirmation";
 
         tempMailPage.waitForElement(confirmYourEmail);
         String activationLink = tempMailPage.findConfirmLink();
@@ -150,23 +149,30 @@ public class RegistrationTest {
 
         //book consultation
         BookConsultation bookConsultation = new BookConsultation(driver);
-        String successMessage = "You have successfully activated your account";
-        Assert.assertTrue(bookConsultation.isTextPresent(successMessage),
-                "No \"" + successMessage + "\"");
-        bookConsultation.printCheckBoxes();
+        String selectTopics = "Select Topic";
+        Assert.assertTrue(bookConsultation.isTextPresent(selectTopics));
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        bookConsultation.selectTopics();
+        bookConsultation.clickNext();
+        bookConsultation.clickRandomDate();
+        bookConsultation.clickRandomTime();
         bookConsultation.clickNext();
 
+        //Confirmation
+        String callMessage = "You are scheduled for initial consultation";
+        bookConsultation.waitForElement(callMessage);
+
         //Request Call
-        RequestCall requestCall = new RequestCall(driver);
+        //RequestCall requestCall = new RequestCall(driver);
         user.generatePhone();
-        requestCall.setPhone(user.getPhone());
-        requestCall.clickRequestCallBack();
+        bookConsultation.setPhone(user.getPhone());
+        bookConsultation.clickSubmit();
 
         // wait for "Consultation has been successfully booked. .."
-        String callMessage = "Consultation has been successfully booked. Your IFA will contact you shortly";
-        requestCall.waitForElement(callMessage);
-        Assert.assertTrue(requestCall.isTextPresent(callMessage),
-                "check: " + callMessage);
+        String errorMessage = "Server is temporarily unavailable";
+        Assert.assertFalse(bookConsultation.isTextPresent(errorMessage));
+        callMessage = "My Financial Reviews";
+        bookConsultation.waitForElement(callMessage);
     }
 
     @Test
@@ -223,8 +229,7 @@ public class RegistrationTest {
         //click on email and do some checks for email
         tempMailPage.clickOnText(confirmation);
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.MINUTES);
-        String confirmYourEmail = "Confirm your email";
-        //emailGetnada.waitForElement(confirmYourEmail);
+        String confirmYourEmail = "Fintuity email confirmation";
 
         tempMailPage.waitForElement(confirmYourEmail);
         String activationLink = tempMailPage.findConfirmLink();
@@ -249,21 +254,30 @@ public class RegistrationTest {
 
         //book consultation
         BookConsultation bookConsultation = new BookConsultation(driver);
-        String successMessage = "You have successfully activated your account";
-        Assert.assertTrue(bookConsultation.isTextPresent(successMessage),
-                "No \"" + successMessage + "\"");
-        bookConsultation.printCheckBoxes();
+        String selectTopics = "Select Topic";
+        Assert.assertTrue(bookConsultation.isTextPresent(selectTopics));
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        bookConsultation.selectTopics();
+        bookConsultation.clickNext();
+        bookConsultation.clickRandomDate();
+        bookConsultation.clickRandomTime();
         bookConsultation.clickNext();
 
+        //Confirmation
+        String callMessage = "You are scheduled for initial consultation";
+        bookConsultation.waitForElement(callMessage);
+
         //Request Call
-        RequestCall requestCall = new RequestCall(driver);
+        //RequestCall requestCall = new RequestCall(driver);
         user.generatePhone();
-        requestCall.setPhone(user.getPhone());
-        requestCall.clickRequestCallBack();
+        bookConsultation.setPhone(user.getPhone());
+        bookConsultation.clickSubmit();
 
         // wait for "Consultation has been successfully booked. .."
-        String callMessage = "Consultation has been successfully booked. Your IFA will contact you shortly";
-        requestCall.waitForElement(callMessage);
+        String errorMessage = "Server is temporarily unavailable";
+        Assert.assertFalse(bookConsultation.isTextPresent(errorMessage));
+        callMessage = "My Financial Reviews";
+        bookConsultation.waitForElement(callMessage);
 
         ((JavascriptExecutor) driver).executeScript("window.open()");
         tabs = new ArrayList<String>(driver.getWindowHandles());
@@ -275,6 +289,10 @@ public class RegistrationTest {
         AdminMainPage adminMainPage =
                 loginPageBO.loginCorrect("testIFA1@fintuity.com","Fintuity-test1");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        adminMainPage.moveToClient();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        adminMainPage.clickClientsIcon();
+        adminMainPage.waitForElement("Clients"); //ToDo find better wait to ckeck
         Assert.assertTrue(adminMainPage.isTextPresent(user.getName()),"Check user Name: ");
         Assert.assertTrue(adminMainPage.isTextPresent(user.getSurname()),"Check user Surname: ");
         Assert.assertTrue(adminMainPage.isTextPresent(user.getPhone()),"Check Phone: ");

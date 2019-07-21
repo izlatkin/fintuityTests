@@ -6,12 +6,17 @@ import com.fintuity.MyProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 public class AdminMainPage {
     public WebDriver driver;
     private By signInButton = By.xpath("//a[text()='SIGN IN']");
+    private By logoImg = By.xpath("//*[@class='logo__img']");
+    private By clientsIcon = By.xpath("//*[@class='ng-star-inserted active']");
 
     //btn btn-warning btn-block font-bold
     private By openNotActive = By.xpath("//*[@class='nav-link active nav__button_active'][text()=' Open ']");
@@ -170,6 +175,25 @@ public class AdminMainPage {
         List<WebElement> list = driver.findElements(taskForm_field_comment);
         return list.size() > 0;
     }
+
+    public void clickClientsIcon(){
+        System.out.println("click client icon: " + clientsIcon.toString());
+        driver.findElement(clientsIcon).click();
+    }
+
+    public void waitForElement(String text) {
+        WebDriverWait wait = new WebDriverWait(driver, 120);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'" + text + "')]")));
+
+    }
+
+    public void moveToClient(){
+        Actions action = new Actions(driver);
+        WebElement client = driver.findElement(clientsIcon);
+        action.moveToElement(client);
+    }
+
 
 
 

@@ -18,6 +18,10 @@ public class AdminMainPage {
     private By logoImg = By.xpath("//*[@class='logo__img']");
     private By clientsIcon = By.xpath("//*[@class='ng-star-inserted active']");
 
+    private By searchFieldIcon = By.xpath("//*[text()='Search here...']");
+    private By searchField = By.xpath("//input[ @placeholder='Search...' and @type='text']");
+    //search-results__item ng-star-inserted
+    private By searchResult = By.xpath("//*[contains(text(),'test one') and contains(@class,'search')]");
     //btn btn-warning btn-block font-bold
     private By openNotActive = By.xpath("//*[@class='nav-link active nav__button_active'][text()=' Open ']");
     private By openActive = By.xpath("//*[@class='nav-link active'][text()=' Open ']");
@@ -62,6 +66,26 @@ public class AdminMainPage {
         System.out.println("click Open: " + openActive.toString());
         driver.findElement(openActive).click();
     }
+
+    public void clickSearch(){
+        System.out.println("click search: " + searchFieldIcon.toString());
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(searchFieldIcon)).click().build().perform();
+    }
+
+    public void searchUser(String userFullName){
+        System.out.println("search for user: " + userFullName);
+        clickSearch();
+        waitForElement(searchField);
+        WebElement search = driver.findElement(searchField);
+        search.sendKeys(userFullName);
+        By userSearchResult = By.xpath("//*[contains(text(),'" + userFullName + "') and contains(@class,'search')]");
+        waitForElement(userSearchResult);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(userSearchResult)).click().build().perform();
+    }
+
+
 
     public boolean isOpenActive(){
         List<WebElement> list = driver.findElements(openActive);
@@ -185,6 +209,12 @@ public class AdminMainPage {
         WebDriverWait wait = new WebDriverWait(driver, 120);
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//*[contains(text(),'" + text + "')]")));
+
+    }
+
+    public void waitForElement(By e) {
+        WebDriverWait wait = new WebDriverWait(driver, 120);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(e));
 
     }
 

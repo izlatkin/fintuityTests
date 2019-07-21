@@ -5,11 +5,13 @@ import backoffice.LoginPageBO;
 import environment.EnvironmentManager;
 import environment.RunEnvironment;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import util.UserProfile;
 
 import java.util.concurrent.TimeUnit;
 
@@ -85,6 +87,17 @@ public class BackOfficeSanityTest {
         Assert.assertTrue(adminMainPage.is_taskForm_field_dueDate_avaible(),"due date not avaible");
 
     }
+
+    @Test
+    public void findClient(){
+        AdminMainPage adminMainPage =  new AdminMainPage(driver);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        UserProfile user = new UserProfile("test","one");
+        adminMainPage.searchUser(user.getName()+" "+user.getSurname());
+        Assert.assertTrue(adminMainPage.isTextPresent(user.getName()),"Check user Name: ");
+        Assert.assertTrue(adminMainPage.isTextPresent(user.getSurname()),"Check user Surname: ");
+    }
+
 
     @AfterMethod
     public static void tearDown() {

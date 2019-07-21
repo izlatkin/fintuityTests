@@ -1,6 +1,6 @@
 [MacOS]
-browser=Firefox
-#browser=Chrome
+#browser=Firefox
+browser=Chrome
 #browser=Safary
 #browser=Edge
 

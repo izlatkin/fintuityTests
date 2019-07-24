@@ -30,7 +30,7 @@ public class LoginSimpleTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         MainPage mainPage = new MainPage(driver);
-        LoginPage loginPage = mainPage.clickSignIn();
+        LoginPage loginPage = mainPage.clickSingIn();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         MyProfilePage myProfilePage = loginPage.loginCorrect("zlatkin_ilya@mail.ru","Scaleio123");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -44,7 +44,7 @@ public class LoginSimpleTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         MainPage mainPage = new MainPage(driver);
-        LoginPage loginPage = mainPage.clickSignIn();
+        LoginPage loginPage = mainPage.clickSingIn();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         LoginPage loginPage_2 = loginPage.loginWithIncorrectCreds("zlatkin_ilya@mail.ru","incorrect");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

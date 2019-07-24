@@ -224,6 +224,13 @@ public class AdminMainPage {
         action.moveToElement(client);
     }
 
+    public void waitForElement(String text, int Seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Seconds);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'" + text + "')]")));
+
+    }
+
 
 
 

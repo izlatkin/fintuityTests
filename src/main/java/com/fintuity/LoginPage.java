@@ -3,6 +3,7 @@ package com.fintuity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import util.UserProfile;
 
 public class LoginPage extends FintuityPage{
 
@@ -89,6 +90,14 @@ public class LoginPage extends FintuityPage{
         this.clickLogin();
         return new LoginPage(driver);
     }
+
+    public MyProfilePage login(UserProfile user){
+        this.typeEmail(user.getEmail());
+        this.typePassword(user.getPassword());
+        return this.clickLogin();
+    }
+
+
 
     public MyProfilePage loginCorrect(String username, String password){
         this.typeEmail(username);

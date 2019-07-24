@@ -29,10 +29,10 @@ public class MainPage extends FintuityPage{
         super(driver);
     }
 
-    public LoginPage clickSignIn(){
-        driver.findElement(signInButton).click();
-        return new LoginPage(driver);
-    }
+//    public LoginPage clickSignIn(){
+//        driver.findElement(signInButton).click();
+//        return new LoginPage(driver);
+//    }
 
 
 

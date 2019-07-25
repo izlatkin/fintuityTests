@@ -17,7 +17,7 @@ public abstract class FintuityPage {
     private By burgerMenu = By.xpath("//*[@class='menu-btn']/img");
     private By getStarted_1 = By.xpath("//*[@class='getStarted']");
     private By getStarted_2 = By.xpath("//a[text()='Get Started']");
-    private By signIn = By.xpath("//*[@class='signIn']");
+    private By signIn = By.xpath("//*[@class='signIn' or @class='signin ']");
 
     public FintuityPage(WebDriver driver){
         this.driver = driver;

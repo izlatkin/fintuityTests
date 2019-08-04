@@ -4,6 +4,7 @@ import com.fintuity.FintuityPage;
 import com.fintuity.LoginPage;
 import com.fintuity.MyProfilePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -81,8 +82,10 @@ public class AdminMainPage {
         search.sendKeys(userFullName);
         By userSearchResult = By.xpath("//*[contains(text(),'" + userFullName + "') and contains(@class,'search')]");
         waitForElement(userSearchResult);
-        Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(userSearchResult)).click().build().perform();
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(driver.findElement(userSearchResult)).click().build().perform();
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", driver.findElement(userSearchResult));
     }
 
 
@@ -213,6 +216,7 @@ public class AdminMainPage {
     }
 
     public void waitForElement(By e) {
+        System.out.println("wait for element: " + e.toString());
         WebDriverWait wait = new WebDriverWait(driver, 120);
         wait.until(ExpectedConditions.visibilityOfElementLocated(e));
 

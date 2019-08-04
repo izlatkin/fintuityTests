@@ -82,30 +82,15 @@ public class MyDocuments extends FintuityPage {
 
     public void downloadOriginalDocumentAndUploadSignedDocument(String fileName){
         By tdTmp = By.xpath("//td[./span[contains(text(),'" + fileName +
-                "')]]/following-sibling::node()/div[contains(@class,'dropdown')]/ancestor::*[position()=1]");
-//        By tmpMenu = By.xpath("//td[./span[contains(text(),'" + fileName +
-//                "')]]/following-sibling::node()/div[contains(@class,'dropdown')]");
+                "')]]/following-sibling::node()//button[contains(@class,'dropdown')]");
         //ToDo find diff selector. This is a temporary one
-        By tmpMenu = By.cssSelector("body > app-root > app-page-wrapper > div > " +
-                "div.tab-pane.active > div > fin-client-documents > div > fin-steps > " +
-                "div > div:nth-child(2) > fin-documents > " +
-                "fin-wrapper-of-page-with-form-or-table > div > div > " +
-                "fin-wrapper-ibox > div > div.ibox-body > app-table:nth-child(3) > " +
-                "div > table > tbody > tr > td:nth-child(7) > button");
-//        By Send = By.xpath("//td[./span[contains(text(),'" + fileName +
-//                "')]]/following-sibling::node()/div[contains(@class,'dropdown')]/button[1]");
-        //ToDo find diff selector. This is a temporary one
-        By downloadOriginalDocument = By.xpath("//td[./span[contains(text(),'" + fileName + "')]]/following-sibling::node()/div[contains(@class,'dropdown')]/button[1]");
-        By uploadSignedDocument = By.xpath("//td[./span[contains(text(),'" + fileName + "')]]/following-sibling::node()/div[contains(@class,'dropdown')]/button[2]");
+        By downloadOriginalDocument = By.xpath("//td[./span[contains(text(),'" + fileName + "')]]/following-sibling::node()//button[contains(text(),'Download')]");
+        By uploadSignedDocument = By.xpath("//td[./span[contains(text(),'" + fileName + "')]]/following-sibling::node()//*[contains(text(),'Upload Signed Document')]");
         System.out.println("click td  " + tdTmp.toString());
         driver.findElement(tdTmp).click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        System.out.println("click dropdown menu " + tmpMenu.toString());
         JavascriptExecutor executor = (JavascriptExecutor)driver;
-        executor.executeScript("arguments[0].click();", driver.findElement(tmpMenu));
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println("downloadOriginalDocument " + downloadOriginalDocument.toString());
-        //driver.findElement(downloadOriginalDocument).click();
         executor.executeScript("arguments[0].click();", driver.findElement(downloadOriginalDocument));
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         System.out.println("uploadSignedDocument " + downloadOriginalDocument.toString());

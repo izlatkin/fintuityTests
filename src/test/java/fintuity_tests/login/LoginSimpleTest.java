@@ -26,7 +26,7 @@ public class LoginSimpleTest {
 
     @Test
     public void loginWithExistingCredentials(){
-        driver.navigate().to("https://fintuity.com/");
+        driver.get(EnvironmentManager.FINTUITY_FRONT_URL);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         MainPage mainPage = new MainPage(driver);
@@ -40,7 +40,7 @@ public class LoginSimpleTest {
 
     @Test
     public void loginWithExistingCredentials_second_attempt(){
-        driver.navigate().to("https://fintuity.com/");
+        driver.get(EnvironmentManager.FINTUITY_FRONT_URL);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         MainPage mainPage = new MainPage(driver);
@@ -58,7 +58,7 @@ public class LoginSimpleTest {
 
     @Test
     public void loginWithExistingCredentials_from_RegisterPage(){
-        driver.navigate().to("https://fintuity.com/");
+        driver.get(EnvironmentManager.FINTUITY_FRONT_URL);
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         MainPage mainPage = new MainPage(driver);
         driver.manage().window().maximize();

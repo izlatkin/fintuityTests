@@ -1,0 +1,12 @@
+<suite name = "regression">
+    <test name = "registration">
+        <classes>
+            <class name = "fintuity_tests.login.RegistrationTest">
+            </class>
+            <class name = "fintuity_tests.login.RestorePasswordTest">
+            </class>
+            <class name = "fintuity_tests.login.LoginSimpleTest">
+            </class>
+        </classes>
+    </test>
+</suite>

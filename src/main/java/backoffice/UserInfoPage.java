@@ -101,32 +101,43 @@ public class UserInfoPage extends AdminMainPage{
 
     public void sentFile(String fileName){
         By tdTmp = By.xpath("//td[./span[contains(text(),'" + fileName +
-                        "')]]/following-sibling::node()/div[contains(@class,'dropdown')]/ancestor::*[position()=1]");
+                        "')]]/following-sibling::node()//button[contains(@class,'dropdown')]");
+        ///div[contains(@class,'dropdown')]/ancestor::*[position()=1]
 //        By tmpMenu = By.xpath("//td[./span[contains(text(),'" + fileName +
 //                "')]]/following-sibling::node()/div[contains(@class,'dropdown')]");
         //ToDo find diff selector. This is a temporary one
-        By tmpMenu = By.cssSelector("body > app-root > fin-admin > div.content-wrapper > " +
-                "fin-main > fin-main-steps-component > fin-steps > div > div:nth-child(2) > fin-client-documents > " +
-                "div > fin-steps > div > div.flex-grow-1 > fin-documents > fin-wrapper-of-page-with-form-or-table > " +
-                "div > div > fin-wrapper-ibox > div > div.ibox-body > app-table:nth-child(3) > " +
-                "div > table > tbody > tr > td:nth-child(7) > button");
+        By tmpMenu = By.cssSelector("body > app-root > fin-admin > div.content-wrapper " +
+                "> fin-main > fin-main-steps-component > fin-steps > div > " +
+                "div:nth-child(2) > fin-client-documents > div > fin-steps > div >" +
+                " div.flex-grow-1 > fin-documents > fin-wrapper-of-page-with-form-or-table > " +
+                "div > div > fin-wrapper-ibox > div > div.ibox-body > app-table:nth-child(3) >" +
+                " div > table > tbody > tr > td:nth-child(7) > fin-table-actions-button > " +
+                "div > button.btn.btn-outline-primary.dropdown-toggle.dropdown-arrow.p-0.pl-1.pr-1.ng-star-inserted");
 //        By Send = By.xpath("//td[./span[contains(text(),'" + fileName +
 //                "')]]/following-sibling::node()/div[contains(@class,'dropdown')]/button[1]");
         //ToDo find diff selector. This is a temporary one
-        By Send = By.cssSelector("body > app-root > fin-admin > div.content-wrapper > fin-main > " +
-                "fin-main-steps-component > fin-steps > div > div:nth-child(2) > fin-client-documents > " +
-                "div > fin-steps > div > div.flex-grow-1 > fin-documents > " +
-                "fin-wrapper-of-page-with-form-or-table > div > div > fin-wrapper-ibox > div > " +
-                "div.ibox-body > app-table:nth-child(3) > div > table > tbody > " +
-                "tr > td.ng-star-inserted.show > div > button:nth-child(1)");
+        By Send = By.cssSelector("body > app-root > fin-admin > div.content-wrapper > " +
+                "fin-main > fin-main-steps-component > fin-steps > div > div:nth-child(2) >" +
+                " fin-client-documents > div > fin-steps > div > div.flex-grow-1 >" +
+                " fin-documents > fin-wrapper-of-page-with-form-or-table > div > div > " +
+                "fin-wrapper-ibox > div > div.ibox-body > app-table:nth-child(3) > div > " +
+                "table > tbody > tr > td:nth-child(7) > fin-table-actions-button >" +
+                " div > div > button:nth-child(1)");
         System.out.println("click td  " + tdTmp.toString());
-        driver.findElement(tdTmp).click();
+        try {
+            driver.findElement(tdTmp).click();
+        }catch (org.openqa.selenium.StaleElementReferenceException ex){
+            driver.findElement(tdTmp).click();
+        }
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println("click dropdown menu " + tmpMenu.toString());
-        driver.findElement(tmpMenu).click();
+        //driver.findElement(tmpMenu).click();
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", driver.findElement(tmpMenu));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println("click send " + Send.toString());
-        driver.findElement(Send).click();
+        //driver.findElement(Send).click();
+        executor.executeScript("arguments[0].click();", driver.findElement(Send));
         waitForElement("Do you want to send selected document?");
         clickYes();
     }

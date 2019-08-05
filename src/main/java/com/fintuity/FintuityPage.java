@@ -17,6 +17,7 @@ public abstract class FintuityPage {
     private By burgerMenu = By.xpath("//*[@class='menu-btn']/img");
     private By getStarted_1 = By.xpath("//*[@class='getStarted']");
     private By getStarted_2 = By.xpath("//a[text()='Get Started']");
+    private By getStarted_3= By.xpath("//a//*[text()='Get Started']");
     private By signIn = By.xpath("//*[@class='signIn' or @class='signin ']");
 
     public FintuityPage(WebDriver driver){
@@ -64,6 +65,8 @@ public abstract class FintuityPage {
             driver.findElement(getStarted_1).click();
         else if (driver.findElements(getStarted_2).size() > 0)
             driver.findElement(getStarted_2).click();
+        else if (driver.findElements(getStarted_3).size() > 0)
+            driver.findElement(getStarted_3).click();
         return new RegisterPage(driver);
     }
 

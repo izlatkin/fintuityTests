@@ -9,6 +9,7 @@ import com.fintuity.MyDocuments;
 import com.fintuity.MyProfilePage;
 import environment.EnvironmentManager;
 import environment.RunEnvironment;
+import mail.GmailPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -25,6 +26,8 @@ import java.util.concurrent.TimeUnit;
 public class SignDocsTest {
     static WebDriver driver;
     static UserProfile user;
+    static String email = "test.fintuity@gmail.com";
+    static String password = "Fintuity123";
 
     @BeforeMethod
     public void startBrowser_and_createNewUser() {
@@ -124,28 +127,91 @@ public class SignDocsTest {
         //check that it is downloadbale
 
         //? compare with reference doc
-
-
-
     }
 
     @Test
     public void upload_signDocu_comfirm(){
         //login to backoffice
+        driver.get(EnvironmentManager.FINTUITY_BACKOFFICE_URL);
+        driver.manage().window().maximize();
+        LoginPageBO loginPageBO = new LoginPageBO(driver);
+        AdminMainPage adminMainPage =
+                loginPageBO.loginCorrect("admin","1");
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         // go to top search field -> type test user name and click on it
+        UserProfile user = new UserProfile("fintuity","test");
+        user.setEmail(email);
+        user.setPassword(password);
+        adminMainPage.searchUser(user.getName()+" "+user.getSurname());
+        Assert.assertTrue(adminMainPage.isTextPresent(user.getName()),"Check user Name: ");
+        Assert.assertTrue(adminMainPage.isTextPresent(user.getSurname()),"Check user Surname: ");
 
         // go to Documents tab and click "generate / upload new documents"
         // from resources/agreement/Fintuity_Client_Agreement.pdf
         // select document type "Appilcation form"
-
+        UserInfoPage userInfoPage = new UserInfoPage(driver);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        userInfoPage.clickTab("Documents");
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        userInfoPage.clickGenerateUploadNewDocumentsButton();
+        userInfoPage.waitForElement("Document Operation");
+        Random rand = new Random();
+        String randomDocName = "Docs" + rand.nextInt(1000);
+        userInfoPage.typeDocumentName(randomDocName);
+        userInfoPage.selectDocumentType("Application Form");
+        userInfoPage.waitForElement("Docu Sign");
+        userInfoPage.selectRadioButton("Docu Sign");
+        //userInfoPage.clickUploadDocumentDialogFormButton();
+        ClassLoader classLoader = getClass().getClassLoader();
+        File resourcesDirectory = new File("src/test/resources");
+        System.out.println(resourcesDirectory.getAbsolutePath());
+        String filePath = resourcesDirectory.getAbsolutePath() +
+                "/fintuity/agreement/Fintuity_Client_Agreement.pdf";
+        System.out.println(filePath);
+        userInfoPage.setFilePath(filePath);
+        userInfoPage.clickUpload();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        userInfoPage.sentFile(randomDocName);
+        userInfoPage.waitForElement("Waiting for Signature");
         //press send to user -> stutus must be "waiting for signature"
 
 
         //go to User mail or internal mail and get email with DocsSign
         //sign docs
+        String backOfficeTab = driver.getWindowHandle();
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        String gmailTab = "";
+        for (String tab : tabs) {
+            if (!tab.equals(backOfficeTab))
+                gmailTab = tab;
+        }
+        driver.switchTo().window(gmailTab);
+        driver.get("https://mail.google.com");
+        // driver.get("https://getnada.com");
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-
+        //Gmail
+        GmailPage gmail =  new GmailPage(driver);
+        gmail.login(email,password);
+        //waiting for email
+        String pleaseSignDocument = "Please sign document";
+        gmail.waitForElement(pleaseSignDocument);
+        //EmailPage emailPage = emailGetnada.openEmail("activation message");
+        Assert.assertTrue(gmail.isTextPresent(pleaseSignDocument));
+        gmail.clickOnText(pleaseSignDocument);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        gmail.isTextPresent("REVIEW DOCUMENT");
+        String docuSignLink = gmail.findDocuSignLink();
+        Assert.assertFalse(docuSignLink.isEmpty(),
+                "SocuSign link was not found ");
+        ((JavascriptExecutor)driver).executeScript("window.open()");
+        tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.switchTo().window(tabs.get(2));
+        driver.get(docuSignLink);
         //goto back office and find this doc signed in correspoding table
         //check that it is downloadbale
 

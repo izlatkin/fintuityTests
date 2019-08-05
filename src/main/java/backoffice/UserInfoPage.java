@@ -75,8 +75,10 @@ public class UserInfoPage extends AdminMainPage{
         }else if(type.equals("Docu Sign"))
         {
             System.out.println("select Docu Sign Radio Button");
-            Actions actions = new Actions(driver);
-            actions.moveToElement(driver.findElement(docuSignRadioButton)).click().build().perform();
+            //Actions actions = new Actions(driver);
+            //actions.moveToElement(driver.findElement(docuSignRadioButton)).click().build().perform();
+            JavascriptExecutor executor = (JavascriptExecutor)driver;
+            executor.executeScript("arguments[0].click();", driver.findElement(docuSignRadioButton));
         }else{
             System.out.println("Incorrect RadioButton value");
         }

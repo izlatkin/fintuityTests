@@ -1,4 +1,4 @@
-package fintuity_tests.login;
+package fintuity_tests.mail;
 
 import environment.EnvironmentManager;
 import environment.RunEnvironment;

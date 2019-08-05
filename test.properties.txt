@@ -23,10 +23,11 @@ webdriver.edge.driver=C:\\ilya\\drivers\\msedgedriver.exe
 
 #pre-prod
 #milestone=staging
-fintuity_front=https://preprod-app.fintuity.com/portal/login
-fintuity_backoffice=https://preprod-app.fintuity.com/admin
+#fintuity_front=https://preprod-app.fintuity.com/portal/login
+#fintuity_backoffice=https://preprod-app.fintuity.com/admin
 
 #testing
 milestone=testing
 #fintuity_front=https://fintuity.hiendsys.ru/portal/login
-#fintuity_backoffice=https://fintuity.hiendsys.ru/admin/login
+fintuity_front=https://fintuity.hiendsys.ru/portal/login
+fintuity_backoffice=https://fintuity.hiendsys.ru/admin/login

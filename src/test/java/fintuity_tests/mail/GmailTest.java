@@ -54,6 +54,17 @@ public class GmailTest {
     }
 
     @Test
+    @Ignore
+    public void removeAllEmail(){
+        driver.navigate().to("https://mail.google.com");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        GmailPage gmail = new GmailPage(driver);
+        gmail.login(email,password);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        gmail.removeAllEmails();
+    }
+
+    @Test
     @Ignore //If user was removed
     public void reg_new_user_activate_backoffice_confirm() {
         driver.get(EnvironmentManager.FINTUITY_FRONT_URL);

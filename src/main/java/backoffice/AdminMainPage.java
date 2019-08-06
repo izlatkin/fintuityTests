@@ -19,7 +19,7 @@ public class AdminMainPage {
     private By logoImg = By.xpath("//*[@class='logo__img']");
     private By clientsIcon = By.xpath("//*[@class='ng-star-inserted active']");
 
-    private By searchFieldIcon = By.xpath("//*[text()='Search here...']");
+    private By searchFieldIcon = By.xpath("//*[contains(text(),'Search here')]");
     private By searchField = By.xpath("//input[ @placeholder='Search...' and @type='text']");
     //search-results__item ng-star-inserted
     private By searchResult = By.xpath("//*[contains(text(),'test one') and contains(@class,'search')]");

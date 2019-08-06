@@ -7,6 +7,7 @@ import com.fintuity.LoginPage;
 import com.fintuity.MainPage;
 import com.fintuity.MyDocuments;
 import com.fintuity.MyProfilePage;
+import docuSign.DocuSign;
 import environment.EnvironmentManager;
 import environment.RunEnvironment;
 import mail.GmailPage;
@@ -15,6 +16,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import util.UserProfile;
 
@@ -83,7 +85,6 @@ public class SignDocsTest {
         userInfoPage.waitForElement("Waiting for Signature");
         //press send to user -> stutus must be "waiting for signature"
 
-
         //go to User mail or internal mail and get email with DocsSign
         String backOfficeTab = driver.getWindowHandle();
         ((JavascriptExecutor) driver).executeScript("window.open()");
@@ -130,7 +131,7 @@ public class SignDocsTest {
     }
 
     @Test
-    public void upload_signDocu_comfirm(){
+    public void upload_signDocu_comfirm() throws InterruptedException {
         //login to backoffice
         driver.get(EnvironmentManager.FINTUITY_BACKOFFICE_URL);
         driver.manage().window().maximize();
@@ -154,6 +155,7 @@ public class SignDocsTest {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         userInfoPage.clickTab("Documents");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        Thread.sleep(1000);
         userInfoPage.clickGenerateUploadNewDocumentsButton();
         userInfoPage.waitForElement("Document Operation");
         Random rand = new Random();
@@ -162,8 +164,6 @@ public class SignDocsTest {
         userInfoPage.selectDocumentType("Application Form");
         userInfoPage.waitForElement("Docu Sign");
         userInfoPage.selectRadioButton("Docu Sign");
-        //userInfoPage.clickUploadDocumentDialogFormButton();
-        ClassLoader classLoader = getClass().getClassLoader();
         File resourcesDirectory = new File("src/test/resources");
         System.out.println(resourcesDirectory.getAbsolutePath());
         String filePath = resourcesDirectory.getAbsolutePath() +
@@ -202,24 +202,45 @@ public class SignDocsTest {
         //EmailPage emailPage = emailGetnada.openEmail("activation message");
         Assert.assertTrue(gmail.isTextPresent(pleaseSignDocument));
         gmail.clickOnText(pleaseSignDocument);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        Thread.sleep(3000);
         gmail.isTextPresent("REVIEW DOCUMENT");
         String docuSignLink = gmail.findDocuSignLink();
         Assert.assertFalse(docuSignLink.isEmpty(),
-                "SocuSign link was not found ");
+                "DocuSign link was not found ");
         ((JavascriptExecutor)driver).executeScript("window.open()");
         tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.switchTo().window(tabs.get(2));
         driver.get(docuSignLink);
-        //goto back office and find this doc signed in correspoding table
-        //check that it is downloadbale
+        DocuSign docuSign = new DocuSign(driver);
+        docuSign.signDocument();
 
-        //? compare with reference doc
+        //goto gmail and check that email recieved
+        driver.switchTo().window(gmailTab);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        gmail.clickInbox();
+        gmail.isTextPresent("Completed: Please sign document");
+        //remove all emails
+        gmail.removeAllEmails();
+        //ToDo write a test which remove all fintuity emails
+
+        //goto back office and find this doc signed in correspoding table
+        driver.switchTo().window(backOfficeTab);
+        Thread.sleep(60000);
+        driver.navigate().refresh();
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        //check that Doc Singed
+        Assert.assertTrue(userInfoPage.getDocStatus(randomDocName).equals("Signed"));
+
+        //check that it is downloadbale
+        userInfoPage.clickDownload(randomDocName);
+
+        //ToDo compare with reference doc
+
     }
 
     @AfterMethod
     public void tearDown() {
-        //EnvironmentManager.shutDownDriver();
+        EnvironmentManager.shutDownDriver();
     }
 }

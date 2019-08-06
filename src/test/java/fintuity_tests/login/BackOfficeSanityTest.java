@@ -2,6 +2,7 @@ package fintuity_tests.login;
 
 import backoffice.AdminMainPage;
 import backoffice.LoginPageBO;
+import backoffice.UserInfoPage;
 import environment.EnvironmentManager;
 import environment.RunEnvironment;
 import org.openqa.selenium.WebDriver;
@@ -98,6 +99,29 @@ public class BackOfficeSanityTest {
         Assert.assertTrue(adminMainPage.isTextPresent(user.getSurname()),"Check user Surname: ");
     }
 
+    @Test
+    public void checkDocStatus(){
+        AdminMainPage adminMainPage = new AdminMainPage(driver);
+        String email = "test.fintuity@gmail.com";
+        String password = "Fintuity123";
+        UserProfile user = new UserProfile("fintuity","test");
+        user.setEmail(email);
+        user.setPassword(password);
+        adminMainPage.searchUser(user.getName()+" "+user.getSurname());
+        Assert.assertTrue(adminMainPage.isTextPresent(user.getName()),"Check user Name: ");
+        Assert.assertTrue(adminMainPage.isTextPresent(user.getSurname()),"Check user Surname: ");
+        UserInfoPage userInfoPage = new UserInfoPage(driver);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        userInfoPage.clickTab("Documents");
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) { }
+        System.out.println(userInfoPage.getDocStatus("Docs541"));
+        System.out.println(userInfoPage.getDocStatus("Docs517"));
+        System.out.println(userInfoPage.getDocStatus("Docs199"));
+
+    }
 
     @AfterMethod
     public static void tearDown() {

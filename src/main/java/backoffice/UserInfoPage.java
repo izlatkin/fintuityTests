@@ -157,4 +157,19 @@ public class UserInfoPage extends AdminMainPage{
         Actions actions = new Actions(driver);
         actions.moveToElement(driver.findElement(yesButton)).click().build().perform();
     }
+
+    public String getDocStatus(String docName){
+        System.out.println("get status of the Doc " + docName + "by name ");
+        By docXpath = By.xpath("//td[./span[contains(text(),'" + docName +
+                "')]]/following-sibling::td[5]/span");
+        return driver.findElement(docXpath).getText();
+    }
+
+    public void clickDownload(String docName){
+        System.out.println("get status of the Doc " + docName + "by name ");
+        By docXpath = By.xpath("//td[./span[contains(text(),'" + docName +
+                "')]]/following-sibling::td[6]//*[contains(text(),'Download')]");
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(docXpath)).click().build().perform();
+    }
 }

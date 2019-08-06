@@ -4,6 +4,7 @@ import junit.framework.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -19,6 +20,8 @@ public class GmailPage {
     private By login = By.xpath("//a[contains(@ga-event-action,'sign in')]");
     private By passwordField = By.xpath("//input[contains(@type,'password')]");
     private By inbox =  By.xpath("//*[contains(@class,'J-Ke n0')]");
+    private By checkBoxEmail = By.xpath("//span[contains(@class,'T-Jo J-J5-Ji')]");
+    private By removeAll = By.xpath("//*[contains(@class,'T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA')]");
 
 
     public GmailPage(WebDriver driver){
@@ -120,11 +123,37 @@ public class GmailPage {
         String docuSignLink = "";
         List<WebElement> allLinks = driver.findElements(By.xpath("//a[contains(@href,'demo.docusign')]"));
         for(WebElement link:allLinks){
-            String tmp = link.getAttribute("href");
-            //System.out.println(link.getText() + " - " );
-            if (tmp != null && tmp.indexOf("demo.docusign.net") > 0)
-                docuSignLink = tmp;
+            if (link.isDisplayed()) {
+                String tmp = link.getAttribute("href");
+                if (tmp != null && tmp.indexOf("demo.docusign.net") > 0)
+                    docuSignLink = tmp;
+            }
         }
         return docuSignLink;
+    }
+
+    public void removeAllEmails(){
+        System.out.println("select all email " + checkBoxEmail.toString());
+        List<WebElement> selectAll = driver.findElements(checkBoxEmail);
+        if (selectAll.size() <= 0){
+            System.out.println("This is no emails");
+            return;
+        }
+//        Actions actions = new Actions(driver);
+//        for (WebElement element:selectAll) {
+//            String status = element.getAttribute("aria-checked");
+//            if (status.equals("false") & element.isDisplayed())
+//                actions.moveToElement(element).click().build().perform();
+//        }
+        WebElement select = driver.findElement(checkBoxEmail);
+        select.click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            System.out.println("Error with sleep");
+        }
+        System.out.println("remove all email " + removeAll.toString());
+        WebElement remove = driver.findElement(removeAll);
+        remove.click();
     }
 }
